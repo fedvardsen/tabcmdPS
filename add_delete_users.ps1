@@ -75,7 +75,7 @@ until ($input -eq 'q')
 # Move-Item -Destination $archive
 
 # Remove Users
- start-process .\tabcmd "removeusers c:\tabcmd\input\remove_users.csv"
+start-process .\tabcmd "deleteusers c:\scripts\input\delete_users.csv"
 
 # Delete Users
 # start-process .\tabcmd "deleteusers c:\tabcmd\input\delete_users.csv"
