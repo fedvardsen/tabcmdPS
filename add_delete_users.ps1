@@ -20,7 +20,7 @@ function Show-Menu
 $server='https://us-west-2b.online.tableau.com/#/site/fedvardsdata'
 $username='fedvardsen@tableau.com'
 $password='LiliLulu2016!'
-$project='Visa SA Shadow'
+#$project='Visa SA Shadow'
 
 Set-Location "C:\Tabcmd\extras\Command Line Utility\"
 start-process .\tabcmd "login -s $server -t fedvardsdata -u $username -p $password"
