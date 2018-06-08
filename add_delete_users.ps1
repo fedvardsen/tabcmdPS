@@ -1,6 +1,7 @@
 ﻿# SYNOPSIS - Test Login - Finn Erik Edvardsen - Tableau
 # V 0.1.2 - Menu Option Added - 06.07.2018 Finn Erik
-# V 0.1.2 - Removed "remove users" Option - 06.07.2018 Finn Erik
+# V 0.1.3 - Removed "remove users" Option - 06.07.2018 Finn Erik
+# V 0.1.4 - Adding File Archive - 06.07.2018 Finn Erik
 
 # Initialize Menu
 function Show-Menu
@@ -60,7 +61,7 @@ until ($input -eq 'q')
 # Rename File after Loaded Successfully - Debug Need to ensure this run after Users are Added.
 # $date = Get-Date -Format yyyyMMdd
 
-# $root = "C:\tabcmd\"
+# $root = "C:\scripts\"
 # $Processed = Join-Path $root "Processed"
 # $archive = Join-Path $root "archive\$date"
 
