@@ -1,8 +1,10 @@
 ﻿# SYNOPSIS - Test Login - Finn Erik Edvardsen - Tableau
 # V 0.1.2 - Menu Option Added - 06.07.2018 Finn Erik
-# V 0.1.2 - Removed "remove users" Option - 06.07.2018 Finn Erik
+# V 0.1.3 - Removed "remove users" Option - 06.07.2018 Finn Erik
+# V 0.1.4 - Adding File Archive - 06.07.2018 Finn Erik
+# V 0.2.0 - Rewrite to add Unattended Run - Test Reading Group Names - 06.08.2018 Finn Erik
 
-# Initialize Menu
+Initialize Menu
 function Show-Menu
 {
      param (
@@ -12,8 +14,9 @@ function Show-Menu
      Write-Host "================ $Title ================"
 
      Write-Host "1: Add New users."
-     Write-Host "2: Add users to group."
-     Write-Host "3: Delete Existing users."
+     Write-Host "2: Add New Groups."
+     Write-Host "3: Add users to group."
+     Write-Host "4: Delete Existing users."
      Write-Host "Q: Press 'Q' to quit."
 }
 
@@ -26,6 +29,11 @@ $password='LiliLulu2016!'
 Set-Location "C:\Tabcmd\Command Line Utility\"
 start-process .\tabcmd "login -s $server -t fedvardsdata -u $username -p $password"
 
+# Import the csv file and store it in the variable $testgroup
+# $testgroup = import-csv c:\scripts\input\test_groups.csv
+
+# Loop through the file and
+
 do
 {
      Show-Menu
@@ -35,12 +43,22 @@ do
            '1' {
             Clear-Host
                 'Adding New Users'
-                start-process .\tabcmd "createsiteusers c:\scripts\input\users_test.csv"
+                start-process .\tabcmd "createsiteusers c:\scripts\input\test_groups.csv"
            } '2' {
             Clear-Host
-                'Adding users to Group'
-                start-process .\tabcmd "addusers Development --users  c:\scripts\input\users_group.csv"
-           } '3' {
+                'Adding New Groups'
+                $file = Get-Content "c:\scripts\input\test_groups.csv"
+                  for ($i = 0; $i -lt $file.Length; $i++)
+                        {
+                              $newgroup=([string]$file[$i]).Split(',')[7]
+                              start-process .\tabcmd "creategroup $newgroup"
+                        }
+
+            } '3' {
+                  Clear-Host
+                      'Adding users to Group'
+                      start-process .\tabcmd "addusers Development --users  c:\scripts\input\users_group.csv"
+            } '4' {
             Clear-Host
                 'Delete Existing Users'
                 start-process .\tabcmd "deletesiteusers c:\scripts\input\delete_users.csv"
@@ -60,7 +78,7 @@ until ($input -eq 'q')
 # Rename File after Loaded Successfully - Debug Need to ensure this run after Users are Added.
 # $date = Get-Date -Format yyyyMMdd
 
-# $root = "C:\tabcmd\"
+# $root = "C:\scripts\"
 # $Processed = Join-Path $root "Processed"
 # $archive = Join-Path $root "archive\$date"
 
